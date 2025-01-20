@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Model Antrian M/M/2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-size: 1.2em;
+        }
+        .btn-primary {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center text-primary">Hasil Model Antrian M/M/2</h1>
+        <div class="card">
+            <div class="card-header">Input</div>
+            <div class="card-body">
+                <ul>
+                    <li><strong>Laju Kedatangan (λ):</strong> {{ arrival_rate }} pelanggan/jam</li>
+                    <li><strong>Laju Pelayanan (μ):</strong> {{ service_rate }} pelanggan/jam</li>
+                    <li><strong>Jumlah Server (s):</strong> 2</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Hasil Perhitungan</div>
+            <div class="card-body">
+                <ul>
+                    <li><strong>Intensitas Trafik (ρ):</strong> {{ utilization }}</li>
+                    <li><strong>Probabilitas Tidak Ada Pelanggan (P<sub>0</sub>):</strong> {{ prob_zero }}</li>
+                    <li><strong>Waktu Rata-rata dalam Sistem (W):</strong> {{ avg_time_in_system }} menit</li>
+                    <li><strong>Waktu Rata-rata dalam Antrian (Wq):</strong> {{ avg_time_in_queue }} menit</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Rumus dan Langkah Perhitungan</div>
+            <div class="card-body">
+                <h5>1. Intensitas Trafik (ρ):</h5>
+                <p>
+                    <strong>Rumus:</strong> ρ = λ / (s × μ)<br>
+                    <strong>Perhitungan:</strong> {{ arrival_rate }} / (2 × {{ service_rate }}) = {{ utilization }}
+                </p>
+                <h5>2. Probabilitas Tidak Ada Pelanggan (P<sub>0</sub>):</h5>
+                <p>
+                    <strong>Rumus:</strong> P<sub>0</sub> = 1 / [∑ (ρ<sup>n</sup> / n!) + ∑ (ρ<sup>n</sup> / (s! × s<sup>n-s</sup>))]<br>
+                    <strong>Perhitungan:</strong> {{ prob_zero_formula }} = {{ prob_zero }}
+                </p>
+                <h5>3. Waktu Rata-rata dalam Sistem (W):</h5>
+                <p>
+                    <strong>Rumus:</strong> W = 1 / (μ - λ)<br>
+                    <strong>Perhitungan:</strong> 1 / ({{ service_rate }} - {{ arrival_rate }}) = {{ avg_time_in_system }}
+                </p>
+                <h5>4. Waktu Rata-rata dalam Antrian (Wq):</h5>
+                <p>
+                    <strong>Rumus:</strong> Wq = W - (1 / μ)<br>
+                    <strong>Perhitungan:</strong> {{ avg_time_in_system }} - (1 / {{ service_rate }}) = {{ avg_time_in_queue }}
+                </p>
+            </div>
+        </div>
+        
+        <a href="/" class="btn btn-primary">Kembali</a>
+    </div>
+</body>
+</html>
